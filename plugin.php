@@ -9,10 +9,20 @@ Author URI: http://fred.im
 */
 	class SRA_Judges_Plugin {
 		function __construct() {
-			if (get_current_user_id()==7):
-				add_action( 'init', array($this, 'sra_cpt_awards_judges'), 0 );
-			endif;
+			add_action( 'init', array($this, 'sra_cpt_awards_judges'), 0 );
+			add_action('do_meta_boxes', array($this,'customposttype_image_box'));
 		}
+
+
+	function customposttype_image_box() {
+
+		remove_meta_box( 'postimagediv', 'judges', 'side' );
+		add_meta_box('postimagediv', __('Profile Picture'), 'post_thumbnail_meta_box', 'judges', 'side', 'high');
+
+	}
+
+
+
 		// Register Custom Post Type
 		function sra_cpt_awards_judges() {
 		
@@ -54,7 +64,7 @@ Author URI: http://fred.im
 				'show_ui'               => true,
 				'show_in_menu'          => true,
 				'menu_position'         => 5,
-				'menu_icon'             => 'groups',
+				'menu_icon'             => 'dashicons-groups',
 				'show_in_admin_bar'     => true,
 				'show_in_nav_menus'     => true,
 				'can_export'            => true,
