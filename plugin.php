@@ -9,7 +9,9 @@ Author URI: http://fred.im
 */
 	class SRA_Judges_Plugin {
 		function __construct() {
-			add_action( 'init', array($this, 'sra_cpt_awards_judges'), 0 );
+			if (get_current_user_id()==7):
+				add_action( 'init', array($this, 'sra_cpt_awards_judges'), 0 );
+			endif;
 		}
 		// Register Custom Post Type
 		function sra_cpt_awards_judges() {
